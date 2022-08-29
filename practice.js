@@ -1,26 +1,42 @@
-// var list = document.getElementsByClassName("list-group-item");
+var node = document.querySelector('.list-group');
 
-// var li = document.getElementsByTagName("li");
+console.log(node); 
 
-// list[2].style.backgroundColor = "green";
+console.log(node.parentElement);
 
-// for(var i=0;i<list.length;i++){
-//     list[i].style.fontWeight = "bold";
-// }
+console.log(node.lastChild);
 
-// for(var i=0;i<li.length;i++){
-//     li[i].style.backgroundColor = "grey";
-// }
+console.log(node.lastElementChild);
 
-var list = document.querySelectorAll("li");
-// list[1].style.backgroundColor = "green";
+console.log(node.children);
 
-list[2].style.display = 'none'; 
+console.log(node.children[0]);
 
-list[1].style.color = "blue";
+console.log(node.nextSibling);
 
-var oddList = document.querySelectorAll("li:nth-child(odd)");
+console.log(node.nextElementSibling);
 
-for(var i=0;i<oddList.length;i++){
-    oddList[i].style.backgroundColor = "green";
-}
+console.log(node.previousSibling);
+
+console.log(node.previousElementSibling);
+
+var newNode = document.createElement('div');
+
+console.log(newNode);
+
+newNode.setAttribute("id","new");
+
+var newtextnode = document.createTextNode("Hello World");
+
+newNode.appendChild(newtextnode);
+
+console.log(newNode);
+
+var container =  document.querySelector("header .container");
+var h1 = document.querySelector("header h1");
+
+container.insertBefore(newNode,h1);
+
+var li = document.querySelector("li");
+
+node.insertBefore(newNode,li);
