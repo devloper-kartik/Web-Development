@@ -1,42 +1,39 @@
-var node = document.querySelector('.list-group');
+var form = document.getElementById("addForm");
+var itemList = document.getElementById("items");
 
-console.log(node); 
+form.addEventListener("submit",addfun);
+itemList.addEventListener("click",removeItem);
 
-console.log(node.parentElement);
+function addfun(e){
+    e.preventDefault();
 
-console.log(node.lastChild);
+    var newItem =  document.getElementById('item').value;
+    var li = document.createElement("li");
 
-console.log(node.lastElementChild);
+    li.className = "list-group-item";
+    li.appendChild(document.createTextNode(newItem));
 
-console.log(node.children);
+    var delbtn = document.createElement("button");
+    var editbtn = document.createElement("button");
 
-console.log(node.children[0]);
+    delbtn.className = "btn btn-danger btn-sm float-right delete";
+    delbtn.appendChild(document.createTextNode("X"));
 
-console.log(node.nextSibling);
+    editbtn.appendChild(document.createTextNode("Edit"));
+    editbtn.className = "btn btn-dark";
+    delbtn.nextElementSibling=editbtn;
 
-console.log(node.nextElementSibling);
+    li.appendChild(delbtn);
+    li.appendChild(editbtn);
 
-console.log(node.previousSibling);
+    itemList.appendChild(li);
+}
 
-console.log(node.previousElementSibling);
-
-var newNode = document.createElement('div');
-
-console.log(newNode);
-
-newNode.setAttribute("id","new");
-
-var newtextnode = document.createTextNode("Hello World");
-
-newNode.appendChild(newtextnode);
-
-console.log(newNode);
-
-var container =  document.querySelector("header .container");
-var h1 = document.querySelector("header h1");
-
-container.insertBefore(newNode,h1);
-
-var li = document.querySelector("li");
-
-node.insertBefore(newNode,li);
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        var parent = e.target.parentElement;
+        if(confirm("Are You Sure you want to remove "+parent.childNodes[0].textContent)){
+            itemList.removeChild(parent);
+        }
+    }
+}
