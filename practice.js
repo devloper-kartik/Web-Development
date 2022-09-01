@@ -14,10 +14,12 @@ for(var i=0;i<localStorage.length;i++){
     li.appendChild(document.createTextNode(obj.e_mail));
     var edit = document.createElement("button");
     var del = document.createElement("button");
+    del.className="delete";
     edit.appendChild(document.createTextNode('Edit'));
     del.appendChild(document.createTextNode('Delete'));
     li.appendChild(edit);
     li.appendChild(del);
+    console.log(del);
     ul.appendChild(li); 
 
 }
@@ -32,16 +34,15 @@ function afterSub(e){
         name : username,
         e_mail : email,
     }
-    var store = localStorage.length+1
-    localStorage.setItem(store,JSON.stringify(obj));
+    localStorage.setItem(email,JSON.stringify(obj));
 
-    var obj = JSON.parse(localStorage.getItem(store));
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(obj.name));
+    li.appendChild(document.createTextNode(username));
     li.appendChild(document.createElement("br"));
-    li.appendChild(document.createTextNode(obj.e_mail));
+    li.appendChild(document.createTextNode(email));
     var edit = document.createElement("button");
     var del = document.createElement("button");
+    del.className="delete";
     edit.appendChild(document.createTextNode('Edit'));
     del.appendChild(document.createTextNode('Delete'));
     li.appendChild(edit);
@@ -49,7 +50,13 @@ function afterSub(e){
     ul.appendChild(li);     
 }
 
-
+ul.addEventListener("click",(e)=>{
+    if(e.target.classList.contains('delete')){
+        var li = e.target.parentElement;        
+        localStorage.removeItem(li.childNodes[2].textContent);
+        ul.removeChild(li);
+    }
+});
 
 
 
