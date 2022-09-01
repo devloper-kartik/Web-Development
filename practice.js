@@ -1,7 +1,3 @@
-// for(var i=0;i<localStorage.length;i++){
-//     localStorage.removeItem(localStorage.key(i));
-// }
-
 var form = document.getElementById("my-form");
 var ul = document.getElementById("ul");
 form.addEventListener("submit",afterSub);
@@ -15,11 +11,11 @@ for(var i=0;i<localStorage.length;i++){
     var edit = document.createElement("button");
     var del = document.createElement("button");
     del.className="delete";
+    edit.className="edit";
     edit.appendChild(document.createTextNode('Edit'));
     del.appendChild(document.createTextNode('Delete'));
     li.appendChild(edit);
     li.appendChild(del);
-    console.log(del);
     ul.appendChild(li); 
 
 }
@@ -27,7 +23,6 @@ for(var i=0;i<localStorage.length;i++){
 
 function afterSub(e){
     e.preventDefault();
-    console.log(localStorage.length);
     var username = document.getElementById("name").value;
     var email = document.getElementById("email").value;
     var obj = {
@@ -43,6 +38,7 @@ function afterSub(e){
     var edit = document.createElement("button");
     var del = document.createElement("button");
     del.className="delete";
+    edit.className="edit";
     edit.appendChild(document.createTextNode('Edit'));
     del.appendChild(document.createTextNode('Delete'));
     li.appendChild(edit);
@@ -51,9 +47,17 @@ function afterSub(e){
 }
 
 ul.addEventListener("click",(e)=>{
+    var li = e.target.parentElement;
+    var username = document.getElementById('name');
+    var email = document.getElementById('email');
+    var obj = JSON.parse(localStorage.getItem(li.childNodes[2].textContent));
     if(e.target.classList.contains('delete')){
-        var li = e.target.parentElement;        
-        localStorage.removeItem(li.childNodes[2].textContent);
+        localStorage.removeItem(obj.e_mail);
+        ul.removeChild(li);
+    }else if(e.target.classList.contains('edit')){
+        username.value = obj.name;
+        email.value = obj.e_mail;
+        localStorage.removeItem(obj.e_mail);
         ul.removeChild(li);
     }
 });
